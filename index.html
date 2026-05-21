@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HASHAN-MD MINI V2</title>
     <style>
         * {
@@ -10,28 +10,31 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Pure Dark Minimalist Background */
+        /* Full Screen Fit & Dark Theme */
         body, html {
             background: #020202;
             color: #ffffff;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Luxury Gold Ambient Glow */
+        /* Enhanced Cyber Gold Glow */
         .ambient-glow {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, rgba(0,0,0,0) 75%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 70%);
             z-index: 0;
             pointer-events: none;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
         }
 
         .main-container {
@@ -42,128 +45,136 @@
             justify-content: center;
             align-items: center;
             z-index: 1;
+            padding: 20px;
         }
 
-        /* Ultra Premium Obsidian Card */
+        /* Ultra Premium Futuristic Card */
         .premium-card {
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(212, 175, 55, 0.12);
-            padding: 50px 40px;
-            border-radius: 28px;
-            width: 90%;
-            max-width: 430px;
+            background: rgba(8, 8, 8, 0.75);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            padding: 45px 35px;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 420px;
             text-align: center;
-            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), 
-                        inset 0 1px 0px rgba(255, 255, 255, 0.02);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(212, 175, 55, 0.03),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.03);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .premium-card.fade-out {
             opacity: 0;
-            transform: scale(0.94) translateY(-15px);
+            transform: scale(0.92) translateY(-20px);
             pointer-events: none;
         }
 
-        /* Gold Ring Logo Container */
+        /* Neon Rotating Logo */
         .logo-container {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .bot-logo {
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             background: #050505;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.08);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.1);
             position: relative;
         }
 
         .bot-logo::after {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
             border-radius: 50%;
-            border: 1px solid transparent;
-            border-top-color: rgba(212, 175, 55, 0.4);
-            animation: spin 4s linear infinite;
+            border: 2px solid transparent;
+            border-top-color: #d4af37;
+            border-bottom-color: #d4af37;
+            animation: spin 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
         }
 
         .bot-logo svg {
-            width: 38px;
-            height: 38px;
-            fill: #d4af37;
+            width: 40px;
+            height: 40px;
+            fill: url(#gold-gradient);
+            filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
         }
 
         /* Typography */
         h1 {
-            font-size: 1.65rem;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 3px;
             margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 40%, #e5c060 100%);
+            background: linear-gradient(135deg, #ffffff 30%, #f3d067 70%, #aa7c11 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         p {
-            color: #71717a;
+            color: #a1a1aa;
             font-size: 0.9rem;
             line-height: 1.6;
-            margin-bottom: 40px;
-            letter-spacing: 0.3px;
+            margin-bottom: 35px;
+            letter-spacing: 0.4px;
+            padding: 0 10px;
         }
 
-        /* Solid Dark Premium Button */
+        /* Neon Border Premium Button */
         .connect-btn {
-            background: #020202;
+            background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
             color: #d4af37;
-            border: 1px solid rgba(212, 175, 55, 0.35);
+            border: 1px solid rgba(212, 175, 55, 0.4);
             padding: 18px 32px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            border-radius: 18px;
             width: 100%;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .connect-btn:hover {
-            background: #0a0a0a;
+            background: #d4af37;
+            color: #000000;
             border-color: #d4af37;
-            color: #ffffff;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+            transform: translateY(-3px);
         }
 
-        /* Premium Shimmer Line */
+        .connect-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Shimmer Effect */
         .connect-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
-            transition: 0.6s ease;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            transition: 0.5s ease;
         }
 
         .connect-btn:hover::before {
             left: 100%;
         }
 
-        /* Super High-End Loading Screen */
+        /* Premium Loading Screen */
         .loading-container {
             position: absolute;
             display: none;
@@ -171,7 +182,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
 
         .loading-container.fade-in {
@@ -179,53 +190,49 @@
             opacity: 1;
         }
 
-        /* Advanced Dual-Ring Loading Spinner */
+        /* Dual-Chamber Luxury Spinner */
         .super-spinner {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
         }
 
         .spinner-outer {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border: 3px solid transparent;
             border-top-color: #d4af37;
-            border-bottom-color: #aa7c11;
+            border-bottom-color: #d4af37;
             border-radius: 50%;
-            animation: spin 1.2s cubic-bezier(0.5, 0.1, 0.1, 0.9) infinite;
+            animation: spin 1s cubic-bezier(0.42, 0, 0.58, 1) infinite;
         }
 
         .spinner-inner {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
             border: 2px solid transparent;
             border-left-color: #ffffff;
-            border-right-color: rgba(212, 175, 55, 0.4);
+            border-right-color: rgba(212, 175, 55, 0.3);
             border-radius: 50%;
-            animation: spin-reverse 0.8s linear infinite;
+            animation: spin-reverse 0.6s linear infinite;
         }
 
         .loading-text {
-            margin-top: 25px;
-            font-size: 0.75rem;
+            margin-top: 30px;
+            font-size: 0.8rem;
             color: #d4af37;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            font-weight: 600;
-            animation: textPulse 1.8s ease-in-out infinite;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            animation: textPulse 1.5s ease-in-out infinite;
         }
 
-        /* Full Screen Iframe Viewport */
+        /* Full Screen Fit Iframe Container */
         .bot-frame-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: 10;
             display: none;
             opacity: 0;
@@ -242,9 +249,10 @@
             width: 100%;
             height: 100%;
             border: none;
+            display: block;
         }
 
-        /* Animations Core */
+        /* Keyframes */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -255,22 +263,36 @@
             100% { transform: rotate(0deg); }
         }
 
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
         @keyframes textPulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1); }
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
 
         .footer-note {
-            margin-top: 35px;
-            font-size: 0.65rem;
-            color: #2a2a2a;
-            letter-spacing: 3px;
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: #3f3f46;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
+
+    <!-- SVG Gradients Reference -->
+    <svg style="width:0;height:0;position:absolute;">
+        <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="50%" stop-color="#d4af37" />
+            <stop offset="100%" stop-color="#aa7c11" />
+        </linearGradient>
+    </svg>
 
     <div class="ambient-glow"></div>
 
@@ -290,22 +312,23 @@
             
             <button class="connect-btn" id="connectBtn">Connect Now</button>
             
-            <div class="footer-note">Secure Terminal</div>
+            <div class="footer-note">SECURE TERMINAL</div>
         </div>
 
-        <!-- Super Premium Loading Screen -->
+        <!-- Premium Loading Screen -->
         <div class="loading-container" id="loadingUi">
             <div class="super-spinner">
                 <div class="spinner-outer"></div>
                 <div class="spinner-inner"></div>
             </div>
-            <div class="loading-text">Connecting to Server</div>
+            <div class="loading-text">Connecting...</div>
         </div>
     </div>
 
-    <!-- Hidden Seamless Iframe Container -->
+    <!-- Screen Fit Hidden Iframe Container (No URL Change) -->
     <div class="bot-frame-container" id="frameContainer">
-        <iframe src="https://gpt-mini-bot-production.up.railway.app/" id="botFrame"></iframe>
+        <!-- New Updated URL Provided By User -->
+        <iframe src="https://gpt-mini-bot-production-a373.up.railway.app/" id="botFrame" allow="clipboard-read; clipboard-write"></iframe>
     </div>
 
     <script>
@@ -314,24 +337,24 @@
             const loading = document.getElementById('loadingUi');
             const frameContainer = document.getElementById('frameContainer');
 
-            // 1. Smoothly fade out the card
+            // 1. Fade out the setup card
             card.classList.add('fade-out');
 
-            // 2. Switch to the super premium loading spinner
+            // 2. Show the premium loader
             setTimeout(() => {
                 card.style.display = 'none';
                 loading.classList.add('fade-in');
             }, 500);
 
-            // 3. Keep loading animation active for 3 seconds, then reveal the pairing web smoothly
+            // 3. Smooth seamless transition to full screen iframe
             setTimeout(() => {
                 loading.classList.remove('fade-in');
                 setTimeout(() => {
                     loading.style.display = 'none';
                     frameContainer.classList.add('show');
                 }, 400);
-            }, 3200);
+            }, 2500); // Optimized loading time
         });
     </script>
 </body>
-  </html>
+        </html>
